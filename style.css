@@ -1,0 +1,13 @@
+.smscmw{
+  min-width: 320px;
+}
+.address.address {
+  height: 80px;
+}
+
+.form-check > .form-check-input:valid ~ .form-check-label {
+  color: unset;
+}
+.form-check > .form-check-input:valid {
+  border-color: unset;
+}
