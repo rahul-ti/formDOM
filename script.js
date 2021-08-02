@@ -1,3 +1,6 @@
+getList();
+
+//IIFE for first execution
 ( async function () {
   await mainContainer()
   let foodsurvey = document.getElementById('foodsurvey')
@@ -73,7 +76,22 @@ function updateList(data) {
     </div>`;
   }
 }
-getList();
+
+//helps the clear button
+async function clearList() {
+  try {
+    let getresp = await fetch('https://60f30ed76d44f300177888b3.mockapi.io/foodsurvey')
+    let getdata = await getresp.json();
+    for(let element of getdata){
+      const id =element.id
+      let resp = await fetch(`https://60f30ed76d44f300177888b3.mockapi.io/foodsurvey/${id}`, { method: 'DELETE', body: null, headers: { "Content-Type": "application/json" } })
+      let data = await resp.json();
+    }
+    getList()
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 
 async function mainContainer(){
@@ -682,7 +700,8 @@ main.innerHTML = `<div class="row">
   </form>
 </div>
 <div class="col-lg-7 pt-3 pt-lg-5">
-  <header class=" mb-4 border-bottom border-secondary border-2"><h4><b>Food Survey Responses</b></h4></header>
+    <header class=" mb-4 border-bottom border-secondary border-2 d-flex justify-content-between "><h4 class="d-inline"><b>Food Survey Responses</b></h4>
+    <button class="btn-close" onclick="clearList()" aria-label="Close"></button></header>
   <div class="row row-cols-1 row-cols-sm-2" id="cardresponses">
   </div>
 </div>
